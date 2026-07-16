@@ -8,6 +8,10 @@ dist-ssr/
 # TypeScript incremental build cache — never commit these
 *.tsbuildinfo
 
+# generated from vite.config.ts if noEmit is ever removed
+vite.config.js
+vite.config.d.ts
+
 # editor/OS
 .vscode/*
 !.vscode/extensions.json
