@@ -13,6 +13,9 @@ interface Props {
 }
 
 export default function Contact({ email, contacts, socials }: Props) {
+  const hasAnyContact = Boolean(email) || contacts.length > 0
+  const hasSocials = Boolean(socials.instagram || socials.facebook || socials.linkedin)
+
   return (
     <section id="contact" className="section">
       <div className="container">
@@ -21,45 +24,53 @@ export default function Contact({ email, contacts, socials }: Props) {
           <h2>Questions? Reach the organizing team directly.</h2>
         </div>
 
-        <div className="contact-grid">
-          <div className="contact-card">
-            <Mail size={18} />
-            <p className="contact-label">Email</p>
-            <a href={`mailto:${email}`} className="contact-value">
-              {email}
-            </a>
+        {hasAnyContact ? (
+          <div className="contact-grid">
+            {email && (
+              <div className="contact-card">
+                <Mail size={18} />
+                <p className="contact-label">Email</p>
+                <a href={`mailto:${email}`} className="contact-value">
+                  {email}
+                </a>
+              </div>
+            )}
+
+            {contacts.map((c) => (
+              <div className="contact-card" key={c.phone}>
+                <Phone size={18} />
+                <p className="contact-label">
+                  {c.name} · {c.role}
+                </p>
+                <a href={`tel:${c.phone}`} className="contact-value">
+                  {c.phone}
+                </a>
+              </div>
+            ))}
           </div>
+        ) : (
+          <p className="contact-empty">Contact details will be posted here soon.</p>
+        )}
 
-          {contacts.map((c) => (
-            <div className="contact-card" key={c.phone}>
-              <Phone size={18} />
-              <p className="contact-label">
-                {c.name} · {c.role}
-              </p>
-              <a href={`tel:${c.phone}`} className="contact-value">
-                {c.phone}
+        {hasSocials && (
+          <div className="contact-socials">
+            {socials.instagram && (
+              <a href={socials.instagram} target="_blank" rel="noreferrer">
+                Instagram <ExternalLink size={13} />
               </a>
-            </div>
-          ))}
-        </div>
-
-        <div className="contact-socials">
-          {socials.instagram && (
-            <a href={socials.instagram} target="_blank" rel="noreferrer">
-              Instagram <ExternalLink size={13} />
-            </a>
-          )}
-          {socials.facebook && (
-            <a href={socials.facebook} target="_blank" rel="noreferrer">
-              Facebook <ExternalLink size={13} />
-            </a>
-          )}
-          {socials.linkedin && (
-            <a href={socials.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn <ExternalLink size={13} />
-            </a>
-          )}
-        </div>
+            )}
+            {socials.facebook && (
+              <a href={socials.facebook} target="_blank" rel="noreferrer">
+                Facebook <ExternalLink size={13} />
+              </a>
+            )}
+            {socials.linkedin && (
+              <a href={socials.linkedin} target="_blank" rel="noreferrer">
+                LinkedIn <ExternalLink size={13} />
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
       <style>{`
@@ -110,6 +121,10 @@ export default function Contact({ email, contacts, socials }: Props) {
         .contact-socials a:hover {
           color: var(--accent);
           border-color: var(--accent);
+        }
+        .contact-empty {
+          color: var(--ink-dim);
+          font-size: 14.5px;
         }
         @media (max-width: 720px) {
           .contact-grid {

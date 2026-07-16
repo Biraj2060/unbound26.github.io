@@ -40,31 +40,37 @@ export default function RegisterModal({ open, onClose, preselected, formLinks }:
             <p className="modal-sub">You'll be taken to the official Google Form for that track.</p>
 
             <div className="modal-options">
-              <a
-                href={formLinks.build}
-                target="_blank"
-                rel="noreferrer"
-                className={`modal-option build ${preselected === 'build' ? 'suggested' : ''}`}
-              >
-                <Lightbulb size={20} />
-                <span className="modal-option-title">Ideathon</span>
-                <span className="modal-option-sub">
-                  Build track <ArrowUpRight size={14} />
-                </span>
-              </a>
-
-              <a
-                href={formLinks.battle}
-                target="_blank"
-                rel="noreferrer"
-                className={`modal-option battle ${preselected === 'battle' ? 'suggested' : ''}`}
-              >
-                <Gamepad2 size={20} />
-                <span className="modal-option-title">E-Sports</span>
-                <span className="modal-option-sub">
-                  Battle track <ArrowUpRight size={14} />
-                </span>
-              </a>
+              {(['build', 'battle'] as const).map((t) => {
+                const hasLink = Boolean(formLinks[t])
+                const Icon = t === 'build' ? Lightbulb : Gamepad2
+                const content = (
+                  <>
+                    <Icon size={20} />
+                    <span className="modal-option-title">{t === 'build' ? 'Ideathon' : 'E-Sports'}</span>
+                    <span className="modal-option-sub">
+                      {hasLink ? (
+                        <>
+                          {t === 'build' ? 'Build track' : 'Battle track'} <ArrowUpRight size={14} />
+                        </>
+                      ) : (
+                        'Form opening soon'
+                      )}
+                    </span>
+                  </>
+                )
+                const className = `modal-option ${t} ${preselected === t ? 'suggested' : ''} ${
+                  hasLink ? '' : 'disabled'
+                }`
+                return hasLink ? (
+                  <a key={t} href={formLinks[t]} target="_blank" rel="noreferrer" className={className}>
+                    {content}
+                  </a>
+                ) : (
+                  <span key={t} className={className} aria-disabled="true">
+                    {content}
+                  </span>
+                )
+              })}
             </div>
           </motion.div>
 
@@ -136,6 +142,11 @@ export default function RegisterModal({ open, onClose, preselected, formLinks }:
             .modal-option.battle { color: var(--battle); }
             .modal-option.build.suggested { border-color: var(--build); background: var(--build-dim); }
             .modal-option.battle.suggested { border-color: var(--battle); background: var(--battle-dim); }
+            .modal-option.disabled {
+              opacity: 0.55;
+              cursor: default;
+              pointer-events: none;
+            }
             .modal-option-title {
               font-size: 15.5px;
               font-weight: 600;

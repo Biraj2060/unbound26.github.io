@@ -10,40 +10,35 @@ import RegisterModal from './components/RegisterModal'
 import type { Track } from './types'
 
 // ─────────────────────────────────────────────────────────────
-// EVENT CONFIG — update these before publishing.
+// EVENT CONFIG — fill in real values here before the event goes live.
+// Nothing below is invented; each field is either a safe "to be
+// announced" default or clearly marked for you to fill in.
 // ─────────────────────────────────────────────────────────────
 
-// TODO: replace with the real Google Form links for each track.
+// Set these once your Google Forms exist. Until then, registration
+// buttons show a "coming soon" state instead of linking anywhere.
 const registrationLinks = {
-  build: 'https://forms.gle/REPLACE_WITH_IDEATHON_FORM',
-  battle: 'https://forms.gle/REPLACE_WITH_ESPORTS_FORM',
+  build: '',
+  battle: '',
 }
 
-// TODO: update fees before publishing.
 const registrationFee = {
-  build: 'NPR 500 / team',
-  battle: 'NPR 300 / player',
+  build: 'Fee TBA',
+  battle: 'Fee TBA',
 }
 
-// TODO: confirm final dates and venue.
-const eventDates = 'Aug 21–22, 2026'
-const venue = 'PACE × ACEM Campus'
+const eventDates = 'Dates to be announced'
+const venue = 'Venue to be announced'
 const eligibility = 'Open to all +2 graduates'
 
-const contactEmail = 'unbound26@paceacem.org'
+// Set this to your real organizing email once confirmed.
+const contactEmail = ''
 
-// TODO: replace with real organizer names and numbers.
-const organizers = [
-  { name: 'Organizer Name', role: 'Ideathon Lead', phone: '+977-98XXXXXXXX' },
-  { name: 'Organizer Name', role: 'E-Sports Lead', phone: '+977-98XXXXXXXX' },
-]
+// Add real organizers here, e.g. { name: 'Jane Doe', role: 'Ideathon Lead', phone: '+977-98XXXXXXXX' }
+const organizers: { name: string; role: string; phone: string }[] = []
 
-// TODO: replace with real social links, or remove any you don't use.
-const socials = {
-  instagram: 'https://instagram.com/paceacem',
-  facebook: 'https://facebook.com/paceacem',
-  linkedin: undefined,
-}
+// Add real links once your pages exist, e.g. instagram: 'https://instagram.com/paceacem'
+const socials: { instagram?: string; facebook?: string; linkedin?: string } = {}
 
 // ─────────────────────────────────────────────────────────────
 
